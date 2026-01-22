@@ -1,0 +1,14 @@
+<h2>Create Contract</h2>
+<form [formGroup]="contractForm" (ngSubmit)="submit()">
+<input placeholder="Contract Number" formControlName="contractNumber" />
+<br />
+<input placeholder="Title" formControlName="title" />
+<br />
+<textarea placeholder="Description" formControlName="description"></textarea>
+<br />
+<input type="date" formControlName="startDate" />
+<br />
+<input type="date" formControlName="endDate" />
+<br />
+<button type="submit">Create</button>
+</form>

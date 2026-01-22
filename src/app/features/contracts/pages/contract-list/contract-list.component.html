@@ -1,0 +1,11 @@
+<h2>Contracts</h2>
+<a routerLink="/contracts/create">Create Contract</a>
+<div *ngIf="loading">Loading contracts...</div>
+<ul *ngIf="!loading && contracts.length > 0">
+<li *ngFor="let c of contracts">
+   {{ c.title }} ({{ c.contractNumber }})
+</li>
+</ul>
+<div *ngIf="!loading && contracts.length === 0">
+ No contracts found
+</div>
