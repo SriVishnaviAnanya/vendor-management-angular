@@ -1,11 +1,30 @@
 <h2>Contracts</h2>
-<a routerLink="/contracts/create">Create Contract</a>
 <div *ngIf="loading">Loading contracts...</div>
-<ul *ngIf="!loading && contracts.length > 0">
-<li *ngFor="let c of contracts">
-   {{ c.title }} ({{ c.contractNumber }})
-</li>
-</ul>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && contracts.length > 0" border="1" cellpadding="8">
+<thead>
+<tr>
+<th>ID</th>
+<th>Contract Number</th>
+<th>Title</th>
+<th>Start Date</th>
+<th>End Date</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let contract of contracts">
+<td>{{ contract.contractId }}</td>
+<td>{{ contract.contractNumber }}</td>
+<td>{{ contract.title }}</td>
+<td>{{ contract.startDate | date }}</td>
+<td>{{ contract.endDate | date }}</td>
+<td>{{ contract.status }}</td>
+</tr>
+</tbody>
+</table>
 <div *ngIf="!loading && contracts.length === 0">
- No contracts found
+
+  No contracts found.
 </div>
+ 

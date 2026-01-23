@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { ContractService } from '../../../../core/services/contract.services';
+
+import { Contract } from '../../../../core/models/contract.model';
 
 @Component({
 
@@ -14,35 +16,57 @@ import { ContractService } from '../../../../core/services/contract.services';
 
 export class ContractListComponent implements OnInit {
 
-  contracts: any[] = [];
+  contracts: Contract[] = [];
 
-  loading = true;
+  loading =true;
+
+  error = '';
 
   constructor(private contractService: ContractService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.loadContracts();
 
   }
 
-  loadContracts() {
+  ngOnDestroy(): void {
+
+    // Reset state when leaving page
+
+    this.loading = false;
+
+    this.contracts = [];
+
+    this.error = '';
+
+  }
+
+  loadContracts(): void {
+
+    // ✅ RESET STATE EVERY TIME
+
+    this.loading = false;
+
+    this.error = '';
+
+    this.contracts = [];
 
     this.contractService.getAllContracts().subscribe({
 
-      next: (res: any) => {
+      next: (data) => {
 
-        // VERY IMPORTANT (backend-safe)
-
-        this.contracts = res.data ?? res;
+        this.contracts = data;
 
         this.loading = false;
 
       },
 
-      error: err => {
+      error: (err) => {
 
         console.error(err);
+
+        this.error = 'Failed to load contracts';
 
         this.loading = false;
 

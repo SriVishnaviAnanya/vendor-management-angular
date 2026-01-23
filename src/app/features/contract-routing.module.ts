@@ -2,9 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContractListComponent } from './contracts/pages/contract-list/contract-list.component';
 import { ContractCreateComponent } from './contracts/pages/contract-create/contract-create.component';
+import { ContractsComponent } from './contracts/contracts.component';
 const routes: Routes = [
- { path: '', component: ContractListComponent },
- { path: 'create', component: ContractCreateComponent }
+ {
+   path: '',
+   component: ContractsComponent,
+   children: [
+     { path: '', redirectTo: 'list', pathMatch: 'full' },
+     { path: 'list', component: ContractListComponent },
+     { path: 'create', component: ContractCreateComponent }
+
+   ]
+ }
 ];
 @NgModule({
  imports: [RouterModule.forChild(routes)],
